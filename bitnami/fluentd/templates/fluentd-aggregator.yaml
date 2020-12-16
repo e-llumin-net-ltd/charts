@@ -65,9 +65,9 @@ data:
        @id out_es
        @log_level info
        include_tag_key true
-       host {{ .Values.elasticsearch.host | quote }}
-       port {{ .Values.elasticsearch.port | quote }}
-       path {{ .Values.elasticsearch.path | quote }}
+       host {{ .Values.aggregator.elasticsearch.host | quote }}
+       port {{ .Values.aggregator.elasticsearch.port | quote }}
+       path {{ .Values.aggregator.elasticsearch.path | quote }}
        scheme "http"
        ssl_verify "true"
        ssl_version "TLSv1"
