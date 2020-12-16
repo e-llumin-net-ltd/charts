@@ -11,9 +11,10 @@ global: {}
 ## ref: https://hub.docker.com/r/bitnami/fluentd/tags/
 ##
 image:
-  registry: docker.io
-  repository: bitnami/fluentd
-  tag: 1.11.5-debian-10-r33
+  registry: kubemaster1:30269
+  repository: fluentd
+  tag: latest
+
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -79,7 +80,7 @@ forwarder:
   ## Name of the configMap that contains the configuration files for fluentd
   ## If not specified, one will be created by default
   ##
-  # configMap:
+  configMap: fluentd-forwarder
 
   ## String with extra arguments for the Fluentd command line
   ## ref: https://docs.fluentd.org/deployment/command-line-option
@@ -91,7 +92,9 @@ forwarder:
   ##   - name: MY_ENV_VAR
   ##     value: my_value
   ##
-  extraEnv: []
+  extraEnv: 
+    - name: FLUENTD_FORWARDER
+      value: fluentd-0.fluentd-headless.kube-logging.svc.cluster.local
 
   ## Forwarder containers' ports
   ##
@@ -370,7 +373,7 @@ aggregator:
   ## Name of the configMap that contains the configuration files for fluentd
   ## If not specified, one will be created by default
   ##
-  # configMap:
+  configMap: fluentd-aggregator
 
   ## Port the Aggregator container will listen for logs. Leave it blank to ignore.
   ## You can specify other ports in the aggregator.containerPorts parameter
@@ -387,7 +390,11 @@ aggregator:
   ##   - name: MY_ENV_VAR
   ##     value: my_value
   ##
-  extraEnv: []
+  extraEnv: 
+    - name: ELASTICSEARCH_HOST
+      value: 'elasticsearch.kube-logging.svc.cluster.local'
+    - name: ELASTICSEARCH_PORT
+      value: '9200'
 
   ## Aggregator containers' ports
   ##
@@ -642,7 +649,7 @@ metrics:
     enabled: false
     ## Namespace in which Prometheus is running
     ##
-    # namespace: monitoring
+    namespace: kube-monitoring
 
     ## Interval at which metrics should be scraped.
     ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
