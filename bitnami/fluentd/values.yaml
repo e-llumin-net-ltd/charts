@@ -80,7 +80,7 @@ forwarder:
   ## Name of the configMap that contains the configuration files for fluentd
   ## If not specified, one will be created by default
   ##
-  configMap: fluentd-forwarder
+  configMap: fluentd-forwarder-serenity-cm
 
   ## String with extra arguments for the Fluentd command line
   ## ref: https://docs.fluentd.org/deployment/command-line-option
@@ -92,9 +92,7 @@ forwarder:
   ##   - name: MY_ENV_VAR
   ##     value: my_value
   ##
-  extraEnv: 
-    - name: FLUENTD_FORWARDER
-      value: fluentd-0.fluentd-headless.kube-logging.svc.cluster.local
+  #extraEnv:
 
   ## Forwarder containers' ports
   ##
@@ -373,7 +371,7 @@ aggregator:
   ## Name of the configMap that contains the configuration files for fluentd
   ## If not specified, one will be created by default
   ##
-  configMap: fluentd-aggregator
+  configMap: fluentd-aggregator-serenity-cm
 
   ## Port the Aggregator container will listen for logs. Leave it blank to ignore.
   ## You can specify other ports in the aggregator.containerPorts parameter
