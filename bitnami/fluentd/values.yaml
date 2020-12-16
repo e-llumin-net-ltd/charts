@@ -390,11 +390,12 @@ aggregator:
   ##   - name: MY_ENV_VAR
   ##     value: my_value
   ##
-  extraEnv: 
-    - name: ELASTICSEARCH_HOST
-      value: 'elasticsearch.kube-logging.svc.cluster.local'
-    - name: ELASTICSEARCH_PORT
-      value: '9200'
+  # extraEnv:
+
+  elasticsearch:
+    host: elasticsearch.kube-logging.svc.cluster.local
+    port: 9200
+    #path:
 
   ## Aggregator containers' ports
   ##
